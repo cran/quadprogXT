@@ -1,0 +1,17 @@
+271ede8ba8475254c62aa7713addec4f *DESCRIPTION
+e1a364525ba34be8cb100d3c73aac87a *NAMESPACE
+48503bacef62dd4e736e6de8bc649d16 *R/constraintConstructors.R
+2c9ffc6f3e94ecae0114ce4ad861e9a9 *R/convertToCompactQP.R
+329d1655ca3109acea9ef13e2c143e5c *R/equalityConstraints.R
+0e3ecdb324814b54cfd2b7f6fdca24d9 *R/expandConstraints.R
+4ffbc9981e78cbd2476a91c4770ea5de *R/merge.R
+4dfdc781f0bf8049d21118b085fde06f *R/normalizeConstraints.R
+5d7753e02bc38d0ac4cd41c92ee27b45 *R/solveQPXT.R
+96e69fa0f2679a306c8b7e2be7072b2e *man/convertToCompact.Rd
+463a9bc9503fb6997f40018464897f39 *man/normalizeConstraints.Rd
+0e80ea5a91a93a95c08d28e919cd05cd *man/solveQPXT.Rd
+6353c67769d3d3fa05878b6c5a026169 *tests/testthat.R
+c6cc1bcdf11ec48f01df24dd45406d0b *tests/testthat/test-convertToCompact.R
+2c8ec6738a7613056ab9162837faffbb *tests/testthat/test-normalizeConstraints.R
+2bd1fbed8a9b707babe2ef2eac84604b *tests/testthat/test-quadprogConsistency.R
+0f9ef179d4827e5443d23f3a8213f1a8 *tests/testthat/test-solveQPXT.R
