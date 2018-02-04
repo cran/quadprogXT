@@ -5,17 +5,16 @@
 \alias{buildQP}
 \title{Solve a quadratic program with absolute values in constraints & objective}
 \usage{
-solveQPXT(Dmat, dvec, Amat, bvec, meq = 0, factorized = FALSE,
-  AmatPosNeg = NULL, bvecPosNeg = NULL, dvecPosNeg = NULL, b0 = NULL,
-  AmatPosNegDelta = NULL, bvecPosNegDelta = NULL, dvecPosNegDelta = NULL,
-  tol = 1e-08)
+solveQPXT(...)
 
 buildQP(Dmat, dvec, Amat, bvec, meq = 0, factorized = FALSE,
   AmatPosNeg = NULL, bvecPosNeg = NULL, dvecPosNeg = NULL, b0 = NULL,
   AmatPosNegDelta = NULL, bvecPosNegDelta = NULL, dvecPosNegDelta = NULL,
-  tol = 1e-08)
+  tol = 1e-08, compact = TRUE, normalize = TRUE)
 }
 \arguments{
+\item{...}{parameters to pass to buildQP when calling solveQPXT}
+
 \item{Dmat}{
     matrix appearing in the quadratic function to be minimized.
   }
@@ -62,12 +61,16 @@ optimization - that is handled implicitly by quadprog.}
 \item{dvecPosNegDelta}{l x 2n vector of loadings in the objective function on the positive and negative part of changes in b from a starting point of b0.}
 
 \item{tol}{tolerance along the diagonal of the expanded Dmat for slack variables}
+
+\item{compact}{logical: if TRUE, it is assumed that we want to use solve.QP.compact to solve the problem, which handles sparsity.}
+
+\item{normalize}{logical: should constraint matrix be normalized}
 }
 \description{
 solveQPXT  allows for absolute value constraints and absolute values in the
 objective.  buildQP builds a parameter list that can then be passed to
-quadprog::solve.QP.compact directly if desired by the user.
-solveQPXT implicitly takes advantage of sparsity in the constraint
+quadprog::solve.QP.compact or quadprog::solve.QP directly if desired by the user.
+solveQPXT by default implicitly takes advantage of sparsity in the constraint
 matrix and can improve numerical stability by normalizing the constraint matrix. For the
 rest of the documentation, assume that Dmat is n x n.\cr
 
@@ -76,32 +79,30 @@ The solver solves the following problem (each * corresponds to matrix multiplica
 min:
 -t(dvec) * b + 1/2 t(b) * Dmat * b +
 -t(dvecPosNeg) * c(b_positive, b_negative) +
- t(dvecPosNegDelta) * c(deltab_positive, deltab_negative)
+-t(dvecPosNegDelta) * c(deltab_positive, deltab_negative)
 
 s.t.
 t(Amat) * b >= bvec 
 t(AmatPosNeg) * c(b_positive, b_negative) >= bvecPosNeg
-t(AmatPosNegChange) * c(deltab_positive, deltab_negative) >= bvecPosNegChange
-b_positive,
-b_negative >= 0,
+t(AmatPosNegDelta) * c(deltab_positive, deltab_negative) >= bvecPosNegDelta
+b_positive, b_negative >= 0,
 b = b_positive - b_negative
-deltab_positive >= 0,
-deltab_negative >= 0,
+deltab_positive, deltab_negative >= 0,
 b - b0 = deltab_positive - deltab_negative
 }
 }
 \details{
 In order to handle constraints on b_positive and b_negative, slack variables are introduced.  The total number of parameters in the problem increases by the following amounts: \cr
-If all the new parameters (those not already used by quadprog) remain NULL, the problem size does not increase and quadprog::solve.QP is called after normalizing the constraint matrix and converting to a sparse matrix representation.\cr
-If AmatPosNeg, bvecPosNeg or dvecPosNeg are not null, the problem size increases by 2 * n
-If AmatPosNegDelta or devecPosNegDelta are not null, the problem size increases by 2 * n.
-This results in a potential problem size of up to 5 * n.
+If all the new parameters (those not already used by quadprog) remain NULL, the problem size does not increase and quadprog::solve.QP (.compact) is called after normalizing the constraint matrix and converting to a sparse matrix representation by default.\cr
+If AmatPosNeg, bvecPosNeg or dvecPosNeg are not null, the problem size increases by n
+If AmatPosNegDelta or devecPosNegDelta are not null, the problem size increases by n.
+This results in a potential problem size of up to 3 * n.
 Despite the potential large increases in problem size, the underlying solver is written in
 Fortran and converges quickly for problems involving even hundreds of parameters.  Additionally,
 it has been the author's experience that solutions solved via the convex quadprog are much more
 stable than those solved by other methods (e.g. a non-linear solver).
 
-Note that due to the fact that the constraints are normalized, the original constraint values the user passed will not be returned by buildQP.
+Note that due to the fact that the constraints are by default normalized, the original constraint values the user passed will may not be returned by buildQP.
 }
 \examples{
 ##quadprog example"
@@ -128,7 +129,8 @@ Amat <- cbind(diag(N), diag(N) * -1)
 bvec <- c(rep(-1, N), rep(-1, N))
 resBase <- solveQPXT(Dmat, dvec, Amat, bvec)
 ##absolute value constraint on decision variable:
-res <- solveQPXT(Dmat, dvec, Amat, bvec, AmatPosNeg = matrix(rep(-1, 2 * N)), bvecPosNeg = -1)
+res <- solveQPXT(Dmat, dvec, Amat, bvec,
+AmatPosNeg = matrix(rep(-1, 2 * N)), bvecPosNeg = -1)
 sum(abs(res$solution[1:N]))
 
 ## penalty of L1 norm
