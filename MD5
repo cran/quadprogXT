@@ -1,11 +1,11 @@
-694da084ae5d2bb98ac4ceeefc200799 *DESCRIPTION
+b07850a6bdeaa7a05e5ecab675da18e4 *DESCRIPTION
 83a42ef6315f0ed23ce523dfbad5eade *NAMESPACE
 2c9ffc6f3e94ecae0114ce4ad861e9a9 *R/convertToCompactQP.R
 4dfdc781f0bf8049d21118b085fde06f *R/normalizeConstraints.R
-b99b3245d0230f06757233d74aa61c82 *R/solveQPXT.R
+b01f5ca8c19cfb2ffd2ae09299f22d59 *R/solveQPXT.R
 96e69fa0f2679a306c8b7e2be7072b2e *man/convertToCompact.Rd
 463a9bc9503fb6997f40018464897f39 *man/normalizeConstraints.Rd
-578e7d5f76efa76e900f3d0412d2ff35 *man/solveQPXT.Rd
+5e4ef29b2b6a771df6f30228873fcd02 *man/solveQPXT.Rd
 6353c67769d3d3fa05878b6c5a026169 *tests/testthat.R
 37f1488b84d7780c1427125f5853810b *tests/testthat/ex.R
 c6cc1bcdf11ec48f01df24dd45406d0b *tests/testthat/test-convertToCompact.R
