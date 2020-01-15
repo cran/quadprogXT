@@ -8,9 +8,10 @@
 solveQPXT(...)
 
 buildQP(Dmat, dvec, Amat, bvec, meq = 0, factorized = FALSE,
-  AmatPosNeg = NULL, bvecPosNeg = NULL, dvecPosNeg = NULL, b0 = NULL,
-  AmatPosNegDelta = NULL, bvecPosNegDelta = NULL, dvecPosNegDelta = NULL,
-  tol = 1e-08, compact = TRUE, normalize = TRUE)
+  AmatPosNeg = NULL, bvecPosNeg = NULL, dvecPosNeg = NULL,
+  b0 = NULL, AmatPosNegDelta = NULL, bvecPosNegDelta = NULL,
+  dvecPosNegDelta = NULL, tol = 1e-08, compact = TRUE,
+  normalize = TRUE)
 }
 \arguments{
 \item{...}{parameters to pass to buildQP when calling solveQPXT}
