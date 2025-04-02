@@ -2,18 +2,19 @@
 % Please edit documentation in R/convertToCompactQP.R
 \name{convertToCompact}
 \alias{convertToCompact}
-\title{'Sparsify' constraint matrix}
+\title{Make a Constraint Matrix Compact}
 \usage{
 convertToCompact(Amat)
 }
 \arguments{
-\item{Amat}{a constraint matrix as defined in solve.QP}
+\item{Amat}{A constraint matrix as defined in solve.QP.}
 }
 \value{
-a list with two elements: Amat and Aind as necessary to be passed to solve.QP.compact
+A list containing the two elements to be passed to solve.QP.compact,
+each named accordingly.
 }
 \description{
-'Sparsify' constraint matrix
+Make a Constraint Matrix Compact
 }
 \seealso{
 quadprog::solve.QP
